@@ -16,3 +16,6 @@ Para crear el package.json ejecutamos npm init
 Para instalar un módulo npm install NOMBRE
 
 Para instalar dependencias npm install
+
+## Crear nueva branch
+git push origin <NombreRama> EJ:git push origin feat01

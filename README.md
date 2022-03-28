@@ -1,6 +1,18 @@
-## NPM 
-Para crear package.json ejecutamos: npm init
+# Datos útiles
+## Git
+git init
 
-Para instalar un modulo: npm install <Nombre>
+git add .
 
-Para instalar dependencias: npm install
+git commit -m "Mensaje"
+
+git push origin main
+
+git remote set-url origin https://oauth2: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@github.com/AlanGarber/EFSI-01.git
+
+## NPM
+Para crear el package.json ejecutamos npm init
+
+Para instalar un módulo npm install NOMBRE
+
+Para instalar dependencias npm install

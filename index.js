@@ -9,7 +9,7 @@ const requestListener = function (req, rest){
 };
 
 const server = http.createServer(requestListener);
-
+// Esto inicia el servidor
 server.listen(port, host, () => {
     console.log(`Server is running on http://${host}:${port}`);
 });

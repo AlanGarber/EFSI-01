@@ -16,3 +16,8 @@ Para crear el package.json ejecutamos npm init
 Para instalar un módulo npm install NOMBRE
 
 Para instalar dependencias npm install
+
+## Ramas
+Para cambiar de rama: git checkout <RAMA>
+
+Para crear nueva rama: git checkout -b <NUEVA_RAMA> main

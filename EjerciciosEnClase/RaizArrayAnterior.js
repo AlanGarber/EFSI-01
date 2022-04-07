@@ -5,7 +5,7 @@ let arrayFinal=[];
 for(let i=0;i<arrayDuplicado.length;i++){
     let obj={
         orig:arrayDuplicado[i],
-        mod:Math.sqrt(arrayDuplicado[i])
+        raiz:Math.sqrt(arrayDuplicado[i])
     }
     arrayFinal.push(obj);
 }

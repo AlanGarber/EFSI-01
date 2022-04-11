@@ -5,10 +5,11 @@ let arrayFinal=[];
 for(let i=0;i<arrayDuplicado.length;i++){
     let obj={
         orig:arrayDuplicado[i],
-        raiz:Math.sqrt(arrayDuplicado[i])
+        raiz:parseFloat(Math.sqrt(arrayDuplicado[i]).toFixed(2))
+        
     }
-    arrayFinal.push(obj);
+        if(!isNaN(obj.raiz)){
+            arrayFinal.push(obj);
+        }
 }
 console.log(arrayFinal);
-
-

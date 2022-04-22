@@ -69,7 +69,7 @@ app.get(`/cartones`,function(req,res){
             res.send(cartones);
         }else{
             console.log(cartones[req.bodytablero-1]);
-            res.send(cartones[req.body.tablero-1]);
+            res.send(cartone[req.body.tablero-1]);
         }
     }
 });

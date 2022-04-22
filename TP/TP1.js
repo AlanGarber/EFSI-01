@@ -47,6 +47,33 @@ app.post("/iniciar_juego",function(req,res){
     
 });
 
+app.get("/obtener_carton",function(req,res){
+    if(req.body.jugadores.length!=cartones.length){
+        console.log("No hay misma cantidad de cartones que de jugadores, vuelva a intentar");
+        res.send("No hay misma cantidad de cartones que de jugadores, vuelva a intentar");
+    }else{
+        jugadores = req.body.jugadores
+        for(let i = 1; i<=jugadores.length; i++){
+            console.log(`Jugador ${i}: ${req.body.jugadores[i-1]}`)
+        }
+        res.send("Gracias, comenzemos");
+    }
+});
+
+app.get(`/cartones`,function(req,res){
+    if(req.body.tablero>cartones.length){
+        console.log("Carton no existente");
+    }else{
+        if(req.body.tablero===null){
+            console.log(cartones)
+            res.send(cartones);
+        }else{
+            console.log(cartones[req.bodytablero-1]);
+            res.send(cartones[req.body.tablero-1]);
+        }
+    }
+});
+
 app.listen(PORT, function(err){
 	if (err) console.log(err);
 	console.log("Server listening on PORT", PORT);

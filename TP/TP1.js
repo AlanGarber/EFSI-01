@@ -1,14 +1,25 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
+const CANT_NUMEROS = 4;
+let jugadores = [];
+let cartones = [];
 
 const crearCarton=()=>{
     let carton=[];
-        for(let i=0;i<15;i++){
-            carton[i]=Math.floor(Math.random() * 99);
+    let num;
+        for(let i=0;i<CANT_NUMEROS;i++){
+            num=Math.floor(Math.random() * 99);
+                for(let j; j<CANT_NUMEROS; j++){
+                    while(num===carton[j]){
+                        num=Math.floor(Math.random() * 99);
+                    }
+                }
+            carton[i] = num;
         }
     return carton;
 }
+
 
 const process_data = () => {
 
@@ -42,21 +53,22 @@ app.post("/iniciar_juego",function(req,res){
     console.log(req.body);
 
     for(let i=0;i<req.body.cartones;i++){
-        res.send(crearCarton());
+        carton = crearCarton();
+        cartones.push(carton);
     }
+    res.send(cartones);
     
 });
 
 app.get("/obtener_carton",function(req,res){
-    if(req.body.jugadores.length!=cartones.length){
-        console.log("No hay misma cantidad de cartones que de jugadores, vuelva a intentar");
-        res.send("No hay misma cantidad de cartones que de jugadores, vuelva a intentar");
+    if(jugadores.length==2){
+        console.log("Existen mas jugadores que cartones, vuelva a intentar");
+        res.send("Existen mas jugadores que cartones, vuelva a intentar");
     }else{
-        jugadores = req.body.jugadores
-        for(let i = 1; i<=jugadores.length; i++){
-            console.log(`Jugador ${i}: ${req.body.jugadores[i-1]}`)
-        }
-        res.send("Gracias, comenzemos");
+        let jugador=req.body.jugador;
+        jugadores.push(jugador);
+        console.log(`Jugador ${jugador}: ${cartones[jugadores.length-1]}`)
+        res.send(`Jugador ${jugador}: ${cartones[jugadores.length-1]}`);
     }
 });
 

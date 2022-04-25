@@ -4,6 +4,7 @@ const PORT = 3000;
 const CANT_NUMEROS = 4;
 let jugadores = [];
 let cartones = [];
+let contadorJugadores=0;
 
 const crearCarton=()=>{
     let carton=[];
@@ -61,29 +62,36 @@ app.post("/iniciar_juego",function(req,res){
 });
 
 app.get("/obtener_carton",function(req,res){
-    if(jugadores.length==2){
-        console.log("Existen mas jugadores que cartones, vuelva a intentar");
-        res.send("Existen mas jugadores que cartones, vuelva a intentar");
+    if(jugadores.length>=cartones.length){
+        console.log("Existen mas jugadores que cartones, vuelva a iniciar el juego");
+        res.send("Existen mas jugadores que cartones, vuelva a iniciar el juego");
     }else{
-        let jugador=req.body.jugador;
+        let jugador={
+            nombre:req.body.jugador,
+            carton:cartones[contadorJugadores]
+        }
+        contadorJugadores=contadorJugadores+1
         jugadores.push(jugador);
-        console.log(`Jugador ${jugador}: ${cartones[jugadores.length-1]}`)
-        res.send(`Jugador ${jugador}: ${cartones[jugadores.length-1]}`);
+        console.log(`Jugador ${jugador.nombre}: ${jugador.carton}`)
+        res.send(`Jugador ${jugador.nombre}: ${jugador.carton}`);
     }
 });
 
-app.get(`/cartones`,function(req,res){
-    if(req.body.tablero>cartones.length){
-        console.log("Carton no existente");
-    }else{
-        if(req.body.tablero===null){
+app.get(`/cartones/:Nombre?`,function(req,res){
+    const cartonesNombre = req.params.Nombre;
+    let cartonElegido;
+        if(cartonesNombre===undefined){
             console.log(cartones)
             res.send(cartones);
         }else{
-            console.log(cartones[req.bodytablero-1]);
-            res.send(cartone[req.body.tablero-1]);
+            for(let i=0;i<jugadores.length;i++){
+                if(cartonesNombre==jugadores[i].nombre){
+                    cartonElegido=jugadores[i].carton;
+                }
+            }
+            console.log(cartonElegido);
+            res.send(cartonElegido);
         }
-    }
 });
 
 app.listen(PORT, function(err){

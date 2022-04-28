@@ -21,6 +21,7 @@ const crearCarton=()=>{
                 }
             carton[i] = num;
         }
+    carton.sort((a, b) => b - a);
     return carton;
 }
 
@@ -128,7 +129,11 @@ app.get(`/sacar_numero`, function(req, res){
             }
         }
         if(sacados === CANT_NUMEROS){
-            console.log(`Juego terminado, gano ${jugadores[i].nombre}`)
+            if(jugadores[i].nombre==undefined){
+                console.log(`Juego terminado, gano VACANTE`)
+            }else{
+                console.log(`Juego terminado, gano ${jugadores[i].nombre}`)
+            }
             ganadores++;
         }
     }

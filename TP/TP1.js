@@ -11,31 +11,41 @@ let contadorCartones = 0;
 let cartonCopia;
 let ganadores = 0;
 
-function crearCarton() {
+function crearCarton(numeros_perso) {
+    let contador1_tope;
+    let contador2_tope;
+    
+    if(numeros_perso){
+        if(numeros_perso>10){
+            contador2_tope=numeros_perso-10;
+            contador1_tope=10-contador1_tope;
+        }else{
+            contador1_tope=numeros_perso;
+        }
+    }else{
+        contador2_tope=5;
+        contador1_tope=5;
+    }
         let contador1 = 0;
         let contador2 = 0;
-        let arr = [
-            [], 
-            [], 
-            [], 
-            [], 
-            [], 
-            [], 
-            [], 
-            [], 
-            [], 
-            [] 
-        ];
+        let arr = [[],[],[],[],[],[],[],[],[],[]];
+
         for(let i = 0; i < arr.length; i++) {
             let min = (i * 10) + 1;
             let max = min + 9;
             let ok = Math.floor(Math.random() * (3 - 1)) + 1;
-            if(ok==1 && contador1<5){
+            if(ok==1){
+                if(contador1<contador1_tope){
                 contador1++;
-                ok=2;
-            }else if (ok==2 && contador2<5){
-                contador2++;
-                ok=1;
+                }else{
+                    ok=2;
+                }
+            }else if(ok==2){
+                if(contador2<contador2_tope){
+                    contador2++;
+                }else{
+                    ok=1;
+                }
             }
                 while(arr[i].length < ok) {
                     let num = Math.floor(Math.random() * (max - min)) + min;
@@ -125,9 +135,8 @@ app.post("/numero_aleatorio",function(req,res){
 
 app.post("/iniciar_juego",function(req,res){
     console.log(req.body);
-    cant_numeros = req.body.numeros;
     for(let i=0;i<req.body.cartones;i++){
-        carton = crearCarton();
+        carton = crearCarton(req.body.numeros);
         contadorCartones = contadorCartones + 1;
         cartones.push(carton);
         //cartonCopia = carton;

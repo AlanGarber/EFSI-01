@@ -11,43 +11,46 @@ let contadorCartones = 0;
 let cartonCopia;
 let ganadores = 0;
 
-function crearCarton(numeros_perso) {
+function crearCarton(numeros) {
     let contador1_tope;
     let contador2_tope;
+    let contador1 = 0;
+    let contador2 = 0;
     
-    if(numeros_perso){
-        if(numeros_perso>10){
-            contador2_tope=numeros_perso-10;
-            contador1_tope=10-contador1_tope;
+    if(numeros){
+        CANT_NUMEROS=numeros;
+        if(numeros>10){
+            contador2_tope=numeros-10;
+            contador1_tope=10-contador2_tope;
         }else{
-            contador1_tope=numeros_perso;
+            contador2_tope=0;
+            contador1_tope=numeros;
         }
     }else{
-        contador2_tope=5;
-        contador1_tope=5;
+        contador2_tope=CANT_NUMEROS-10;
+        contador1_tope=10-contador2_tope;
     }
-        let contador1 = 0;
-        let contador2 = 0;
+        
         let arr = [[],[],[],[],[],[],[],[],[],[]];
 
         for(let i = 0; i < arr.length; i++) {
             let min = (i * 10) + 1;
             let max = min + 9;
-            let ok = Math.floor(Math.random() * (3 - 1)) + 1;
-            if(ok==1){
+            let cantPorDecena = Math.floor(Math.random() * (3 - 1)) + 1;
+            if(cantPorDecena==1){
                 if(contador1<contador1_tope){
-                contador1++;
+                    contador1++;
                 }else{
-                    ok=2;
+                    cantPorDecena=2;
                 }
-            }else if(ok==2){
+            }else if(cantPorDecena==2){
                 if(contador2<contador2_tope){
                     contador2++;
                 }else{
-                    ok=1;
+                    cantPorDecena=1;
                 }
             }
-                while(arr[i].length < ok) {
+                while(arr[i].length < cantPorDecena) {
                     let num = Math.floor(Math.random() * (max - min)) + min;
                     if(!arr[i].includes(num)) {
                         arr[i].push(num);
